@@ -1,0 +1,18 @@
+version: 0.1
+
+phases:
+  install:
+    commands:
+      - echo "install"
+  pre_build:
+    commands:
+      - echo "pre-build"
+  build:
+    commands:
+      - echo "run build"
+  post_build:
+    commands:
+      - ls -al
+      - aws s3 cp --recursive dist/ s3://codebuild-ap-northeast-2-050545564764-output-bucket/
+      - zip test.zip ./*
+      - aws s3 cp test.zip s3://codebuild-ap-northeast-2-050545564764-output-bucket/test.zip
